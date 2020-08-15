@@ -6,9 +6,9 @@ import { Component, h } from '@stencil/core'
 export class SideDrawer {
 	render() {
 		return (
-			<div>
+			<aside>
 				<h1>The Side Drawer</h1>
-			</div>
+			</aside>
 		)
 	}
 }
