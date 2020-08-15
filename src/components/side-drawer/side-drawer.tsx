@@ -2,6 +2,8 @@ import { Component, h } from '@stencil/core'
 
 @Component({
 	tag: 'bisu-side-drawer',
+	styleUrl: './side-drawer.css',
+	shadow: true,
 })
 export class SideDrawer {
 	render() {
