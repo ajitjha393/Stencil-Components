@@ -11,10 +11,10 @@ export class SideDrawer {
 	})
 	title: string
 
-	@Prop() open: boolean = true
+	// @Prop() open: boolean = true
 
 	render() {
-		return this.open ? (
+		return (
 			<aside>
 				<header>
 					<h1>{this.title}</h1>
@@ -23,6 +23,6 @@ export class SideDrawer {
 					<slot />
 				</main>
 			</aside>
-		) : null
+		)
 	}
 }
