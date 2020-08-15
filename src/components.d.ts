@@ -6,20 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-
+    interface BisuSideDrawer {
+    }
 }
 declare global {
+    interface HTMLBisuSideDrawerElement extends Components.BisuSideDrawer, HTMLStencilElement {
+    }
+    var HTMLBisuSideDrawerElement: {
+        prototype: HTMLBisuSideDrawerElement;
+        new (): HTMLBisuSideDrawerElement;
+    };
     interface HTMLElementTagNameMap {
+        "bisu-side-drawer": HTMLBisuSideDrawerElement;
     }
 }
 declare namespace LocalJSX {
+    interface BisuSideDrawer {
+    }
     interface IntrinsicElements {
+        "bisu-side-drawer": BisuSideDrawer;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "bisu-side-drawer": LocalJSX.BisuSideDrawer & JSXBase.HTMLAttributes<HTMLBisuSideDrawerElement>;
         }
     }
 }
