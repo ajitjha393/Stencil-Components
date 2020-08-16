@@ -11,7 +11,9 @@ export class SideDrawer {
 	})
 	title: string
 
-	// @Prop() open: boolean = true
+	@Prop({
+		reflect: true
+	}) open: boolean = false
 
 	render() {
 		return (
