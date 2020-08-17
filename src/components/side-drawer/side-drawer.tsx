@@ -13,6 +13,7 @@ export class SideDrawer {
 
 	@Prop({
 		reflect: true,
+		mutable: true,
 	})
 	open: boolean
 
