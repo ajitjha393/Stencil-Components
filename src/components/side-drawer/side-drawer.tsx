@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core'
+import { Component, h, Prop, State } from '@stencil/core'
 
 @Component({
 	tag: 'bisu-side-drawer',
@@ -6,6 +6,8 @@ import { Component, h, Prop } from '@stencil/core'
 	shadow: true,
 })
 export class SideDrawer {
+	@State() showContactInfo = false
+
 	@Prop({
 		reflect: true,
 	})
@@ -24,26 +26,30 @@ export class SideDrawer {
 	onContentChange = (content: 'nav' | 'contact') => {
 		switch (content) {
 			case 'nav':
+				this.showContactInfo = false
+				break
 			case 'contact':
-				console.log(content)
+				this.showContactInfo = true
 				break
 		}
 	}
 
 	render() {
 		let mainContent = <slot />
-		mainContent = (
-			<div id="contact-info">
-				<h2> Contact Information </h2>
-				<p>You can reach us via Phone or email!</p>
-				<ul>
-					<li>Phone: 4899986858</li>
-					<li>
-						<a href="mailto:test@test.com">test@test.com</a>
-					</li>
-				</ul>
-			</div>
-		)
+		if (this.showContactInfo) {
+			mainContent = (
+				<div id="contact-info">
+					<h2> Contact Information </h2>
+					<p>You can reach us via Phone or email!</p>
+					<ul>
+						<li>Phone: 4899986858</li>
+						<li>
+							<a href="mailto:test@test.com">test@test.com</a>
+						</li>
+					</ul>
+				</div>
+			)
+		}
 
 		return (
 			<aside>
@@ -52,10 +58,12 @@ export class SideDrawer {
 					<button onClick={this.onCloseDrawer}>X</button>
 				</header>
 				<section id="tabs">
-					<button class="active" onClick={() => this.onContentChange('nav')}>
+					<button class={this.showContactInfo ? '' : 'active'} onClick={() => this.onContentChange('nav')}>
 						Navigation
 					</button>
-					<button onClick={() => this.onContentChange('contact')}>Contact</button>
+					<button onClick={() => this.onContentChange('contact')} class={this.showContactInfo ? 'active' : ''}>
+						Contact
+					</button>
 				</section>
 				<main>{mainContent}</main>
 			</aside>
