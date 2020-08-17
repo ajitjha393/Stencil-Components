@@ -12,14 +12,20 @@ export class SideDrawer {
 	title: string
 
 	@Prop({
-		reflect: true
-	}) open: boolean = false
+		reflect: true,
+	})
+	open: boolean
+
+	onCloseDrawer = () => {
+		this.open = false
+	}
 
 	render() {
 		return (
 			<aside>
 				<header>
 					<h1>{this.title}</h1>
+					<button onClick={this.onCloseDrawer}>X</button>
 				</header>
 				<main>
 					<slot />

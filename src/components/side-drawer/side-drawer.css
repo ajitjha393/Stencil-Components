@@ -15,6 +15,7 @@ aside {
 }
 
 header {
+	position: relative;
 	padding: 1rem;
 	background: black;
 }
@@ -23,4 +24,19 @@ header h1 {
 	font-size: 1.5rem;
 	color: white;
 	margin: 0;
+}
+
+header button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 1rem;
+	color: white;
+	background: transparent;
+	font-size: 1.5rem;
+	border: none;
+}
+
+header button:focus {
+	outline: none;
 }
