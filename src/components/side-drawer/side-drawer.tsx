@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core'
+import { Component, h, Prop, State, Method } from '@stencil/core'
 
 @Component({
 	tag: 'bisu-side-drawer',
@@ -17,10 +17,16 @@ export class SideDrawer {
 		reflect: true,
 		mutable: true,
 	})
-	open: boolean
+	opened: boolean
 
 	onCloseDrawer = () => {
-		this.open = false
+		this.opened = false
+	}
+
+	@Method()
+	open() {
+		this.opened = true
+		console.log('hello')
 	}
 
 	onContentChange = (content: 'nav' | 'contact') => {
