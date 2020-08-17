@@ -57,3 +57,14 @@ header button:focus {
 	font: inherit;
 	padding: 0.2rem 0;
 }
+
+#tabs button.active,
+#tabs button:hover,
+#tabs button:active {
+	background: black;
+	color: white;
+}
+
+#tabs button:focus {
+	outline: none;
+}
