@@ -24,8 +24,8 @@ export class SideDrawer {
 	onContentChange = (content: 'nav' | 'contact') => {
 		switch (content) {
 			case 'nav':
-				break
 			case 'contact':
+				console.log(content)
 				break
 		}
 	}
