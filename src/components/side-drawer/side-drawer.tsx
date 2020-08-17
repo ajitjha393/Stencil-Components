@@ -21,7 +21,30 @@ export class SideDrawer {
 		this.open = false
 	}
 
+	onContentChange = (content: 'nav' | 'contact') => {
+		switch (content) {
+			case 'nav':
+				break
+			case 'contact':
+				break
+		}
+	}
+
 	render() {
+		let mainContent = <slot />
+		mainContent = (
+			<div id="contact-info">
+				<h2> Contact Information </h2>
+				<p>You can reach us via Phone or email!</p>
+				<ul>
+					<li>Phone: 4899986858</li>
+					<li>
+						<a href="mailto:test@test.com">test@test.com</a>
+					</li>
+				</ul>
+			</div>
+		)
+
 		return (
 			<aside>
 				<header>
@@ -29,12 +52,12 @@ export class SideDrawer {
 					<button onClick={this.onCloseDrawer}>X</button>
 				</header>
 				<section id="tabs">
-					<button class="active">Navigation</button>
-					<button>Contact</button>
+					<button class="active" onClick={() => this.onContentChange('nav')}>
+						Navigation
+					</button>
+					<button onClick={() => this.onContentChange('contact')}>Contact</button>
 				</section>
-				<main>
-					<slot />
-				</main>
+				<main>{mainContent}</main>
 			</aside>
 		)
 	}
