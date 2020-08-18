@@ -1,4 +1,4 @@
-import { Component, h, State, Element, Prop } from '@stencil/core'
+import { Component, h, State, Element, Prop, Watch } from '@stencil/core'
 import { API_KEY } from '../../global/global'
 
 @Component({
@@ -23,31 +23,27 @@ export class StockPrice {
 
 	@State() errorMessage: string
 
-	@Prop() stockSymbol: string
+	@Prop({ mutable: true, reflectToAttr: true }) stockSymbol: string
 
-	componentWillLoad() {
-		console.log('Will Load')
+	@Watch('stockSymbol')
+	stockSymbolChangedHandler(newValue: string, oldValue: string) {
+		if (newValue !== oldValue) {
+			this.stockUserInputValue = newValue
+			this.fetchStockPrice(newValue)
+		}
+	}
+
+	componentDidLoad() {
 		if (this.stockSymbol) {
 			this.stockUserInputValue = this.stockSymbol
 			this.stockInputValid = true
-		}
-	}
-	componentDidLoad() {
-		console.log('Load')
-		if (this.stockSymbol) {
 			this.fetchStockPrice(this.stockSymbol)
 		}
 	}
 
-	componentDidUpdate() {
-		console.log('Update')
-	}
-
 	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
-
-		const stockSymbol = this.stockUserInputValue
-		this.fetchStockPrice(stockSymbol)
+		this.stockSymbol = this.stockUserInputValue
 	}
 
 	onUserInputChange = (event: Event) => {
