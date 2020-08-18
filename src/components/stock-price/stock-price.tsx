@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core'
+import { Component, h, State } from '@stencil/core'
 
 @Component({
 	tag: 'bisu-stock-price',
@@ -6,9 +6,17 @@ import { Component, h } from '@stencil/core'
 	shadow: true,
 })
 export class StockPrice {
-	onFetchStockPrice(event: Event) {
+	@State() Price = 0
+
+	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
-		console.log('Fetching Stock Price!')
+		fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo')
+			.then(res => res.json())
+			.then(resData => {
+				console.log(resData)
+				return (this.Price = +resData['Global Quote']['05. price'])
+			})
+			.catch(err => console.log(err))
 	}
 
 	render() {
@@ -19,7 +27,7 @@ export class StockPrice {
 			</form>,
 
 			<div>
-				<p>Price : {0}</p>
+				<p>Price : $ {this.Price}</p>
 			</div>,
 		]
 	}
