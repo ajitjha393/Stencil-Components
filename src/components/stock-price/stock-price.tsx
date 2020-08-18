@@ -1,4 +1,4 @@
-import { Component, h, State, Element } from '@stencil/core'
+import { Component, h, State, Element, Prop } from '@stencil/core'
 import { API_KEY } from '../../global/global'
 
 @Component({
@@ -23,16 +23,29 @@ export class StockPrice {
 
 	@State() errorMessage: string
 
+	@Prop() stockSymbol: string
+
+	componentDidLoad() {
+		if (this.stockSymbol) {
+			this.fetchStockPrice(this.stockSymbol)
+		}
+	}
+
 	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
 
-		// Alternative to this
-		// const stockSymbol = (this.el.shadowRoot.querySelector('#stock-symbol') as HTMLInputElement).value
-
-		// const stockSymbol = this.stockInput.value
-
 		const stockSymbol = this.stockUserInputValue
-		console.log(stockSymbol)
+		this.fetchStockPrice(stockSymbol)
+	}
+
+	onUserInputChange = (event: Event) => {
+		this.stockUserInputValue = (event.target as HTMLInputElement).value
+		this.stockInputValid = this.stockUserInputValue.trim() !== ''
+	}
+
+	// Utility function for fetching Stocks
+
+	fetchStockPrice = (stockSymbol: string) => {
 		fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${API_KEY}`)
 			.then(res => res.json())
 			.then(resData => {
@@ -47,11 +60,6 @@ export class StockPrice {
 				console.log(err)
 				this.errorMessage = err.message
 			})
-	}
-
-	onUserInputChange = (event: Event) => {
-		this.stockUserInputValue = (event.target as HTMLInputElement).value
-		this.stockInputValid = this.stockUserInputValue.trim() !== ''
 	}
 
 	render() {

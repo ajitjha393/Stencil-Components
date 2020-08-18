@@ -12,6 +12,7 @@ export namespace Components {
         "title": string;
     }
     interface BisuStockPrice {
+        "stockSymbol": string;
     }
 }
 declare global {
@@ -38,6 +39,7 @@ declare namespace LocalJSX {
         "title"?: string;
     }
     interface BisuStockPrice {
+        "stockSymbol"?: string;
     }
     interface IntrinsicElements {
         "bisu-side-drawer": BisuSideDrawer;
