@@ -27,25 +27,5 @@
 		<script type="module" src="/build/bisu-stencil-web-component.esm.js"></script>
 		<script nomodule src="/build/bisu-stencil-web-component.js"></script>
 	</head>
-	<body>
-		<button id="open-side-drawer">Open Side Drawer</button>
-		<bisu-side-drawer title="Main Menu">
-			<!-- Will have to style this nested ul element as it is not accessible using ::slotted -->
-			<nav class="side-nav">
-				<ul>
-					<li><a href="/">A Link</a></li>
-					<li><a href="/">Another Link</a></li>
-					<li><a href="/">A third Link</a></li>
-				</ul>
-			</nav>
-		</bisu-side-drawer>
-
-		<script>
-			const button = document.querySelector('#open-side-drawer')
-			const sideDrawer = document.querySelector('bisu-side-drawer')
-			button.addEventListener('click', () => {
-				sideDrawer.open()
-			})
-		</script>
-	</body>
+	<body></body>
 </html>
