@@ -1,4 +1,5 @@
-import { Component, h, State } from '@stencil/core'
+import { Component, h, State, Element } from '@stencil/core'
+import { API_KEY } from '../../global/global'
 
 @Component({
 	tag: 'bisu-stock-price',
@@ -6,11 +7,15 @@ import { Component, h, State } from '@stencil/core'
 	shadow: true,
 })
 export class StockPrice {
+	@Element() el: HTMLElement
+
 	@State() Price = 0
 
 	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
-		fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo')
+		const stockSymbol = (this.el.shadowRoot.querySelector('#stock-symbol') as HTMLInputElement).value
+		console.log(stockSymbol)
+		fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${API_KEY}`)
 			.then(res => res.json())
 			.then(resData => {
 				console.log(resData)
