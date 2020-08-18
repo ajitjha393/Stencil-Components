@@ -12,9 +12,12 @@ export class StockPrice {
 	/**
 	 * Another Alternative by using 2way binding
 	 */
-	@State() stockUserInputValue: string
 
 	@Element() el: HTMLElement
+
+	@State() stockUserInputValue: string
+
+	@State() stockInputValid = false
 
 	@State() Price = 0
 
@@ -37,13 +40,18 @@ export class StockPrice {
 			.catch(err => console.log(err))
 	}
 
-	onUserInputChange = (event: Event) => (this.stockUserInputValue = (event.target as HTMLInputElement).value)
+	onUserInputChange = (event: Event) => {
+		this.stockUserInputValue = (event.target as HTMLInputElement).value
+		this.stockInputValid = this.stockUserInputValue.trim() !== ''
+	}
 
 	render() {
 		return [
 			<form onSubmit={this.onFetchStockPrice}>
 				<input type="text" id="stock-symbol" ref={el => (this.stockInput = el)} value={this.stockUserInputValue} onInput={this.onUserInputChange} />
-				<button type="submit">Fetch</button>
+				<button type="submit" disabled={!this.stockInputValid}>
+					Fetch
+				</button>
 			</form>,
 
 			<div>
