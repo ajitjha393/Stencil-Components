@@ -25,10 +25,22 @@ export class StockPrice {
 
 	@Prop() stockSymbol: string
 
+	componentWillLoad() {
+		console.log('Will Load')
+		if (this.stockSymbol) {
+			this.stockUserInputValue = this.stockSymbol
+			this.stockInputValid = true
+		}
+	}
 	componentDidLoad() {
+		console.log('Load')
 		if (this.stockSymbol) {
 			this.fetchStockPrice(this.stockSymbol)
 		}
+	}
+
+	componentDidUpdate() {
+		console.log('Update')
 	}
 
 	onFetchStockPrice = async (event: Event) => {
