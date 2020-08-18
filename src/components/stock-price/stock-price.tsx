@@ -21,6 +21,8 @@ export class StockPrice {
 
 	@State() Price = 0
 
+	@State() errorMessage: string
+
 	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
 
@@ -34,10 +36,17 @@ export class StockPrice {
 		fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${API_KEY}`)
 			.then(res => res.json())
 			.then(resData => {
-				console.log(resData)
+				if (!resData['Global Quote']['05. price']) {
+					throw new Error('Invalid Symbol Passed!')
+				}
+
+				this.errorMessage = ''
 				return (this.Price = +resData['Global Quote']['05. price'])
 			})
-			.catch(err => console.log(err))
+			.catch((err: Error) => {
+				console.log(err)
+				this.errorMessage = err.message
+			})
 	}
 
 	onUserInputChange = (event: Event) => {
@@ -46,6 +55,13 @@ export class StockPrice {
 	}
 
 	render() {
+		let dataContent = <p>Please Add a Symbol</p>
+		if (this.errorMessage) {
+			dataContent = <p>{this.errorMessage}</p>
+		} else if (this.Price) {
+			dataContent = <p>Price : $ {this.Price}</p>
+		}
+
 		return [
 			<form onSubmit={this.onFetchStockPrice}>
 				<input type="text" id="stock-symbol" ref={el => (this.stockInput = el)} value={this.stockUserInputValue} onInput={this.onUserInputChange} />
@@ -54,9 +70,7 @@ export class StockPrice {
 				</button>
 			</form>,
 
-			<div>
-				<p>Price : $ {this.Price}</p>
-			</div>,
+			<div>{dataContent}</div>,
 		]
 	}
 }
