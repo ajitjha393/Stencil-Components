@@ -1,4 +1,4 @@
-import { Component, h, State, Element, Prop, Watch } from '@stencil/core'
+import { Component, h, State, Element, Prop, Watch, Listen } from '@stencil/core'
 import { API_KEY } from '../../global/global'
 
 @Component({
@@ -30,6 +30,15 @@ export class StockPrice {
 		if (newValue !== oldValue) {
 			this.stockUserInputValue = newValue
 			this.fetchStockPrice(newValue)
+		}
+	}
+
+	// Listen to the custom event emitted from outside
+	@Listen('body:bisuStockSymbolSelected')
+	onStockSymbolSelected(event: CustomEvent) {
+		console.log('Custom Event Catched ' + event.detail)
+		if (event.detail && event.detail !== this.stockSymbol) {
+			this.stockSymbol = event.detail
 		}
 	}
 
