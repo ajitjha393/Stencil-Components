@@ -106,14 +106,7 @@ export class StockPrice {
 		}
 
 		if (this.Loading) {
-			dataContent = (
-				<div class="lds-ellipsis">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-			)
+			dataContent = <bisu-spinner></bisu-spinner>
 		}
 
 		return [
