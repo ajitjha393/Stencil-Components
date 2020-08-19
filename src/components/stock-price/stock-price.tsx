@@ -48,14 +48,15 @@ export class StockPrice {
 		if (this.stockSymbol) {
 			this.stockUserInputValue = this.stockSymbol
 			this.stockInputValid = true
+			return this.fetchStockPrice(this.stockSymbol)
 		}
 	}
 
-	componentDidLoad() {
-		if (this.stockSymbol) {
-			this.fetchStockPrice(this.stockSymbol)
-		}
-	}
+	// componentDidLoad() {
+	// 	if (this.stockSymbol) {
+	// 		this.fetchStockPrice(this.stockSymbol)
+	// 	}
+	// }
 
 	onFetchStockPrice = async (event: Event) => {
 		event.preventDefault()
