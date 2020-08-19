@@ -1,7 +1,7 @@
 :host {
 	font-family: sans-serif;
 	display: block;
-	border: 2px solid #3b013b;
+	border: 2px solid var(--color-primary, black);
 	margin: 2rem;
 	padding: 1rem;
 	width: 20rem;
@@ -24,16 +24,16 @@ form button:focus {
 form button {
 	font: inherit;
 	padding: 0.25rem 0.5rem;
-	border: 1px solid #3b013b;
-	background: #3b013b;
-	color: white;
+	border: 1px solid var(--color-primary, black);
+	background: var(--color-primary, black);
+	color: var(--color-primary-inverse, white);
 	cursor: pointer;
 }
 
 form button:hover,
 form button:active {
-	background-color: #750175;
-	color: white;
+	background-color: var(--color-primary-highlight, #ccc);
+	color: var(--color-primary-highlight, #ccc);
 	border-color: #750175;
 }
 
@@ -60,6 +60,6 @@ li {
 
 li:hover,
 li:active {
-	background: #3b013b;
-	color: white;
+	background: var(--color-primary, black);
+	color: var(--color-primary-inverse, white);
 }
