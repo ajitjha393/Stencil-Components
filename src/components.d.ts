@@ -11,6 +11,8 @@ export namespace Components {
         "opened": boolean;
         "title": string;
     }
+    interface BisuStockFinder {
+    }
     interface BisuStockPrice {
         "stockSymbol": string;
     }
@@ -22,6 +24,12 @@ declare global {
         prototype: HTMLBisuSideDrawerElement;
         new (): HTMLBisuSideDrawerElement;
     };
+    interface HTMLBisuStockFinderElement extends Components.BisuStockFinder, HTMLStencilElement {
+    }
+    var HTMLBisuStockFinderElement: {
+        prototype: HTMLBisuStockFinderElement;
+        new (): HTMLBisuStockFinderElement;
+    };
     interface HTMLBisuStockPriceElement extends Components.BisuStockPrice, HTMLStencilElement {
     }
     var HTMLBisuStockPriceElement: {
@@ -30,6 +38,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "bisu-side-drawer": HTMLBisuSideDrawerElement;
+        "bisu-stock-finder": HTMLBisuStockFinderElement;
         "bisu-stock-price": HTMLBisuStockPriceElement;
     }
 }
@@ -38,11 +47,14 @@ declare namespace LocalJSX {
         "opened"?: boolean;
         "title"?: string;
     }
+    interface BisuStockFinder {
+    }
     interface BisuStockPrice {
         "stockSymbol"?: string;
     }
     interface IntrinsicElements {
         "bisu-side-drawer": BisuSideDrawer;
+        "bisu-stock-finder": BisuStockFinder;
         "bisu-stock-price": BisuStockPrice;
     }
 }
@@ -51,6 +63,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "bisu-side-drawer": LocalJSX.BisuSideDrawer & JSXBase.HTMLAttributes<HTMLBisuSideDrawerElement>;
+            "bisu-stock-finder": LocalJSX.BisuStockFinder & JSXBase.HTMLAttributes<HTMLBisuStockFinderElement>;
             "bisu-stock-price": LocalJSX.BisuStockPrice & JSXBase.HTMLAttributes<HTMLBisuStockPriceElement>;
         }
     }
