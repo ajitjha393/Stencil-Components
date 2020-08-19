@@ -23,6 +23,8 @@ export class StockPrice {
 
 	@State() errorMessage: string
 
+	@State() Loading = false
+
 	@Prop({ mutable: true, reflectToAttr: true }) stockSymbol: string
 
 	@Watch('stockSymbol')
@@ -68,9 +70,11 @@ export class StockPrice {
 	// Utility function for fetching Stocks
 
 	fetchStockPrice = (stockSymbol: string) => {
+		this.Loading = true
 		fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${API_KEY}`)
 			.then(res => res.json())
 			.then(resData => {
+				this.Loading = false
 				if (!resData['Global Quote']['05. price']) {
 					throw new Error('Invalid Symbol Passed!')
 				}
@@ -81,6 +85,7 @@ export class StockPrice {
 			.catch((err: Error) => {
 				console.log(err)
 				this.errorMessage = err.message
+				this.Loading = false
 			})
 	}
 
@@ -99,10 +104,21 @@ export class StockPrice {
 			dataContent = <p>Price : $ {this.Price}</p>
 		}
 
+		if (this.Loading) {
+			dataContent = (
+				<div class="lds-ellipsis">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			)
+		}
+
 		return [
 			<form onSubmit={this.onFetchStockPrice}>
 				<input type="text" id="stock-symbol" ref={el => (this.stockInput = el)} value={this.stockUserInputValue} onInput={this.onUserInputChange} />
-				<button type="submit" disabled={!this.stockInputValid}>
+				<button type="submit" disabled={!this.stockInputValid || this.Loading}>
 					Fetch
 				</button>
 			</form>,
