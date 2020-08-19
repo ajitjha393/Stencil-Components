@@ -45,8 +45,8 @@ export class StockFinder {
 			<ul>
 				{this.searchResults.map(({ name, symbol }) => {
 					return (
-						<li>
-							<strong onClick={() => this.onSelectSymbol(symbol)}>{symbol} </strong>- {name}
+						<li onClick={() => this.onSelectSymbol(symbol)}>
+							<strong>{symbol} </strong>- {name}
 						</li>
 					)
 				})}
