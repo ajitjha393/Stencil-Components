@@ -84,6 +84,13 @@ export class StockPrice {
 			})
 	}
 
+	// Executed every time render is executing
+	hostData() {
+		return {
+			class: this.errorMessage ? 'error' : '',
+		}
+	}
+
 	render() {
 		let dataContent = <p>Please Add a Symbol</p>
 		if (this.errorMessage) {
