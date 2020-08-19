@@ -48,6 +48,7 @@ declare namespace LocalJSX {
         "title"?: string;
     }
     interface BisuStockFinder {
+        "onBisuStockSymbolSelected"?: (event: CustomEvent<string>) => void;
     }
     interface BisuStockPrice {
         "stockSymbol"?: string;

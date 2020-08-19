@@ -1,4 +1,4 @@
-import { Component, h, State } from '@stencil/core'
+import { Component, h, State, Event, EventEmitter } from '@stencil/core'
 import { API_KEY } from '../../global/global'
 
 @Component({
@@ -10,6 +10,16 @@ export class StockFinder {
 	stockNameInput: HTMLInputElement
 
 	@State() searchResults: { symbol: string; name: string }[] = []
+
+	@Event({
+		composed: true,
+		bubbles: true,
+	})
+	bisuStockSymbolSelected: EventEmitter<string>
+
+	onSelectSymbol = (symbol: string) => {
+		this.bisuStockSymbolSelected.emit(symbol)
+	}
 
 	onFindStocks = (event: Event) => {
 		event.preventDefault()
@@ -36,7 +46,7 @@ export class StockFinder {
 				{this.searchResults.map(({ name, symbol }) => {
 					return (
 						<li>
-							<strong>{symbol} </strong>- {name}
+							<strong onClick={() => this.onSelectSymbol(symbol)}>{symbol} </strong>- {name}
 						</li>
 					)
 				})}
